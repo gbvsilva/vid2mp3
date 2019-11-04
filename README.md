@@ -1,2 +1,2 @@
-# vid2mp3
+# Vid2MP3
 Android YouTube Video Downloader
