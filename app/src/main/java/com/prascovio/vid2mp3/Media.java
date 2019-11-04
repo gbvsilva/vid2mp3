@@ -124,6 +124,10 @@ public class Media {
         }
     }
 
+    public String getUrl() {
+        return this.url;
+    }
+
     public void printUrl() {
         System.out.println(this.getClass().getSimpleName()+" URL -> "+this.url);
     }

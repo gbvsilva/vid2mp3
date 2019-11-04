@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Vid2MP3</string>
     <string name="instrucao1">Copie e cole o link abaixo:</string>
+    <string name="instrucao2">Obter Video</string>
     <string name="url_exemplo">https://youtube.com/watch?v=EOfCEhWq8sg</string>
 </resources>
