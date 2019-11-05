@@ -7,6 +7,8 @@ import androidx.annotation.RequiresApi;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,8 +17,8 @@ public class Media {
     private int itag;
     private String mimeType;
     private int bitrate;
-    private Map<String, Integer> initRange;
-    private Map<String, Integer> indexRange;
+    private HashMap<String, Integer> initRange;
+    private HashMap<String, Integer> indexRange;
     private String lastModified;
     private int contentLength;
     private String quality;
@@ -39,11 +41,13 @@ public class Media {
         M = P.matcher(info);
         bitrate = M.find() ? Integer.parseInt(M.group(1)) : null;
 
-        P = Pattern.compile("initRange\":{\"start\":\"(.+?)\",\"end\":\"(.+?)\"}");
+        initRange = new HashMap<>();
+        P = Pattern.compile("initRange\":\\{\"start\":\"(.+?)\",\"end\":\"(.+?)\"\\}");
         M = P.matcher(info);
         initRange.put("start", M.find() ? Integer.parseInt(M.group(1)) : -1);
         initRange.put("end", M.find() ? Integer.parseInt(M.group(2)) : -1);
-        P = Pattern.compile("indexRange\":{\"start\":\"(.+?)\",\"end\":\"(.+?)\"}");
+        indexRange = new HashMap<>();
+        P = Pattern.compile("indexRange\":\\{\"start\":\"(.+?)\",\"end\":\"(.+?)\"\\}");
         M = P.matcher(info);
         indexRange.put("start", M.find() ? Integer.parseInt(M.group(1)) : -1);
         indexRange.put("end", M.find() ? Integer.parseInt(M.group(2)) : -1);
@@ -83,7 +87,7 @@ public class Media {
 
     public void setUrl() throws UnsupportedEncodingException {
         if(cipher != null) {
-            String decodedCipher = URLDecoder.decode(cipher, Charset.forName("UTF-8").toString());
+            String decodedCipher = URLDecoder.decode(cipher, "utf-8");
             Pattern p;
             Matcher m;
             String url = "";
@@ -107,18 +111,19 @@ public class Media {
             StringBuilder sig = new StringBuilder();
             sig.append(old_sig);
             sig = sig.reverse();
-            char char1 = sig.charAt(sig.length()-1);
-            sig.deleteCharAt(sig.length()-1);
-            sig.deleteCharAt(sig.length()-1);
-            char char2 = sig.charAt(sig.length()-12);
-            sig.setCharAt(sig.length()-12, char1);
 
-            if(sig.length() == 100) {
-                sig.setCharAt(45, char2);
-            }else if(sig.length() == 104) {
-                sig.setCharAt(sig.indexOf("="), char2);
+            char char1, char2;
+            if(sig.length() == 104 && sig.indexOf("=") != -1) {
+                char1 = sig.charAt(sig.length()-1);
+                char2 = sig.charAt(53);
+                sig.setCharAt(sig.length()-1, '=');
+                sig.setCharAt(53, char1);
+                sig.setCharAt(43, char2);
+                this.url = url+"&sig="+sig.toString();
+            }else {
+                System.out.println("Fail on get content!");
             }
-            this.url = url+"&sig="+sig;
+
         }else {
             url = url.replace("u0026", "&");
         }
