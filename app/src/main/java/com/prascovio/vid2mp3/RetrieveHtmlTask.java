@@ -76,45 +76,23 @@ public class RetrieveHtmlTask extends AsyncTask<String, Void, String> {
                         StringBuilder sig = new StringBuilder();
                         sig.append(decodedOldSig);
                         sig = sig.reverse();
-<<<<<<< HEAD
 
                         char c1, c2;
                         if (sig.indexOf("=") > -1 && sig.indexOf("=") < 50) {
                             sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length()-1));
                             sig.setCharAt(sig.length()-1, '=');
-                            sig.setCharAt(41, sig[0]);
+                            sig.setCharAt(41, sig.charAt(0));
                         }else {
                             c1 = sig.charAt(52);
                             sig.setCharAt(89, sig.charAt(sig.length()-1));
                             //c2 = sig.charAt(52);
-=======
-                        
-						char c1, c2;
-                        if (sig.indexOf("=") > -1 && sig.indexOf("=") < 50) {
-                        	sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length()-1));
-							sig;setCharAt(sig.length()-1, '=');
-							sig.setCharAt(41, 'A');
-							sig.delete(0,3);
-							sig.setCharAt(0, 'A');
-                            System.out.println("new sig -> " + sig);
-						}else {
-							c1 = sig.charAt(89);
-                            sig.setCharAt(89, sig.charAt(sig.length()-1));
-                            c2 = sig.charAt(52);
->>>>>>> 71be877c02f41dba74c077ef6fc9a6d3895f69d4
                             sig.setCharAt(52, sig.charAt(0));
                             sig.setCharAt(40, c1);
                             sig.delete(100, 103);
-<<<<<<< HEAD
                         }
                         sig.delete(0, 3);
                         sig.setCharAt(0, 'A');
                         System.out.println("new sig -> " + sig);
-=======
-                            sig.setCharAt(0, 'A');
-                            System.out.println("new sig -> " + sig);
-						}
->>>>>>> 71be877c02f41dba74c077ef6fc9a6d3895f69d4
                         src = decodedUrl + "&sig=" + sig;
                     }
                 }else {

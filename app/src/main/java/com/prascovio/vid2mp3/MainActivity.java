@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         final WebAppInterface webAppI = new WebAppInterface(context);
         myWebView.addJavascriptInterface(webAppI, "Android");
 
+        myWebView.getSettings().setUseWideViewPort(true);
+        myWebView.getSettings().setLoadWithOverviewMode(true);
+        myWebView.getSettings().setSupportZoom(false);
         myWebView.loadUrl("file:///android_asset/index.html");
 
         btnGetVideo.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 if(link.startsWith("https://youtu.be/") || link.startsWith("https://www.youtube.com/watch?v=") || link.startsWith("https://youtube.com/watch?v=")) {
                     String src;
                     //myWebView.loadUrl("javascript:toggleElement('loadingDiv');");
-
                     ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+
                     loadingProgressBar.setVisibility(View.VISIBLE);
                     try {
                         do {
