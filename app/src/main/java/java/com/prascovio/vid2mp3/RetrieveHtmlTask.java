@@ -81,7 +81,7 @@ public class RetrieveHtmlTask extends AsyncTask<String, Void, String> {
                         if (sig.indexOf("=") > -1 && sig.indexOf("=") < 50) {
                             sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length()-1));
                             sig.setCharAt(sig.length()-1, '=');
-                            sig.setCharAt(41, sig[0]);
+                            sig.setCharAt(41, sig.charAt(0));
                         }else {
                             c1 = sig.charAt(52);
                             sig.setCharAt(89, sig.charAt(sig.length()-1));
