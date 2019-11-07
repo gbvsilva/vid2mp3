@@ -96,34 +96,35 @@ public class Media {
                 P = Pattern.compile("url=(.+)");
                 M = P.matcher(decodedCipher);
                 url = M.find() ? M.group(1) : null;
-                P = Pattern.compile("s=(.+?)LAu0026");
+                P = Pattern.compile("s=(.+?)u0026");
                 M = P.matcher(decodedCipher);
                 old_sig = M.find() ? M.group(1) : null;
             }else {
                 P = Pattern.compile("url=(.+?)u0026");
                 M = P.matcher(decodedCipher);
                 url = M.find() ? M.group(1) : null;
-                P = Pattern.compile("u0026s=(.+LA?)LA");
+                P = Pattern.compile("u0026s=(.+)");
                 M = P.matcher(decodedCipher);
                 old_sig = M.find() ? M.group(1) : null;
             }
-            //System.out.println("Reverse sig: "+sig);
+
             StringBuilder sig = new StringBuilder();
             sig.append(old_sig);
-            sig = sig.reverse();
 
-            char char1, char2;
-            if(sig.length() == 104 && sig.indexOf("=") != -1) {
-                char1 = sig.charAt(sig.length()-1);
-                char2 = sig.charAt(53);
-                sig.setCharAt(sig.length()-1, '=');
-                sig.setCharAt(53, char1);
-                sig.setCharAt(43, char2);
+            if(sig.length() == 106) {
+                sig = sig.reverse();
+                char c1 = sig.charAt(82);
+                sig.setCharAt(82, sig.charAt(104));
+                sig.setCharAt(104, '=');
+                sig.setCharAt(68, sig.charAt(0));
+                sig.delete(0, 2);
+                sig.setCharAt(0, 'A');
+                System.out.println("sig -> "+sig);
                 this.url = url+"&sig="+sig.toString();
             }else {
-                System.out.println("Fail on get content!");
+                System.out.println("Falha na obtencao da URL!");
+                this.url = null;
             }
-
         }else {
             url = url.replace("u0026", "&");
         }

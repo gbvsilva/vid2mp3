@@ -10,60 +10,62 @@
         android:id="@+id/btnGetVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="248dp"
+        android:layout_marginTop="12dp"
         android:text="@string/instrucao2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linkEditText" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="68dp"
         android:gravity="bottom|center_horizontal"
         android:text="@string/instrucao1"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/linkEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/linkEditText"
         android:layout_width="335dp"
         android:layout_height="37dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="28dp"
         android:gravity="bottom"
         android:hint="@string/url_exemplo"
         android:inputType="textUri"
+        android:textColorHighlight="@color/colorAccent"
+        android:textColorLink="@color/colorPrimary"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnGetVideo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/videoUrlTextView"
-        android:layout_width="333dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="72dp"
-        android:gravity="bottom"
-        android:text="Video URL"
+    <WebView
+        android:id="@+id/myWebView"
+        android:layout_width="0dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="124dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetVideo" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="102dp"
+        android:layout_height="77dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGetVideo" />
-
-    <TextView
-        android:id="@+id/audioUrlTextView"
-        android:layout_width="333dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="160dp"
-        android:gravity="bottom"
-        android:text="Audio URL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGetVideo" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGetVideo"
+        app:layout_constraintVertical_bias="0.078" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

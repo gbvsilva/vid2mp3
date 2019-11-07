@@ -1,16 +1,15 @@
-/* Sending value to Android */
+/* Listening status of video loading process */
 function toggleElement(element) {
-	var classList = element.classList;
-	if(classList.indexOf('hidden') === -1) {
-		classList.add('hidden');
+    var docElem = document.getElementById(element);
+	if(docElem.classList.contains('hidden')) {
+	    docElem.classList.remove('hidden');
 	}else {
-		classList.remove('hidden');
+	    docElem.classList.add('hidden');
 	}
 }
 
 /* Getting value from Android */
-function getVideoSrc() {
-	var vidDiv = document.getElementById('vidDiv');
-	var videoSrc = AndroidInterface.getVideoUrl();
-	vidDiv.innerHTML = '<video src=\"'+videoSrc+'\"></video>';
+function setVideoSrc(src) {
+	var videoDiv = document.getElementById('videoDiv');
+	videoDiv.innerHTML = '<video controls><source src=\"'+src+'\" type="video/mp4"></video>';
 }
