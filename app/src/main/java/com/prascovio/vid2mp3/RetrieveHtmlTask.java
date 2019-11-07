@@ -76,11 +76,18 @@ public class RetrieveHtmlTask extends AsyncTask<String, Void, String> {
                         StringBuilder sig = new StringBuilder();
                         sig.append(decodedOldSig);
                         sig = sig.reverse();
-
-                        if (sig.length() == 106) {
-                            char c1, c2;
-                            c1 = sig.charAt(89);
-                            sig.setCharAt(89, sig.charAt(105));
+                        
+						char c1, c2;
+                        if (sig.indexOf("=") > -1 && sig.indexOf("=") < 50) {
+                        	sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length()-1));
+							sig;setCharAt(sig.length()-1, '=');
+							sig.setCharAt(41, 'A');
+							sig.delete(0,3);
+							sig.setCharAt(0, 'A');
+                            System.out.println("new sig -> " + sig);
+						}else {
+							c1 = sig.charAt(89);
+                            sig.setCharAt(89, sig.charAt(sig.length()-1));
                             c2 = sig.charAt(52);
                             sig.setCharAt(52, sig.charAt(0));
                             sig.setCharAt(40, c2);
@@ -88,8 +95,8 @@ public class RetrieveHtmlTask extends AsyncTask<String, Void, String> {
                             sig.delete(100, 103);
                             sig.setCharAt(0, 'A');
                             System.out.println("new sig -> " + sig);
-                            src = decodedUrl + "&sig=" + sig;
-                        }
+						}
+                        src = decodedUrl + "&sig=" + sig;
                     }
                 }else {
                     Pattern p = Pattern.compile("\"url\":\"(.+?)\"");
