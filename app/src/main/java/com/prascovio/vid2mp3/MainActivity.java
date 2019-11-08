@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         final WebView myWebView = (WebView) findViewById(R.id.webView);
         myWebView.setVisibility(View.INVISIBLE);
 
+        myWebView.setWebViewClient(new WebViewClient());
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
