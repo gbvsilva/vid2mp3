@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final Context context = getApplicationContext();
+
         Button btnGetVideo = (Button) findViewById(R.id.btnGetVideo);
 
-        final Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         final Toast toast = Toast.makeText(context, "", duration);
         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
 
         final WebView myWebView = (WebView) findViewById(R.id.myWebView);
+        myWebView.setVisibility(View.INVISIBLE);
+
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -42,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         myWebView.getSettings().setSupportZoom(false);
         myWebView.loadUrl("file:///android_asset/index.html");
 
+        final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+
         btnGetVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,27 +61,16 @@ public class MainActivity extends AppCompatActivity {
                 String link = linkEditText.getText().toString();
 
                 if(link.startsWith("https://youtu.be/") || link.startsWith("https://www.youtube.com/watch?v=") || link.startsWith("https://youtube.com/watch?v=")) {
-                    String src;
-                    //myWebView.loadUrl("javascript:toggleElement('loadingDiv');");
-                    ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
-                    loadingProgressBar.setVisibility(View.VISIBLE);
-                    try {
-                        do {
-                            src = new RetrieveHtmlTask().execute(link).get();
-                        }while(src == "");
-                        loadingProgressBar.setVisibility(View.INVISIBLE);
 
-                        //myWebView.loadUrl("javascript:toggleElement('loadingDiv');");
-                        myWebView.loadUrl("javascript:toggleElement('videoDiv');");
-                        myWebView.loadUrl("javascript:setVideoSrc(\""+src+"\");");
-                        myWebView.setVisibility(View.VISIBLE);
-                        //webAppI.setVideoSrc(src);
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    //loadingProgressBar.setVisibility(View.VISIBLE);
+                    MediaTask mediaTask = new MediaTask(loadingProgressBar, myWebView);
+                    mediaTask.execute(link);
+                    /*System.out.println("Video Src -> " + media.getSrc());
+                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                    myWebView.loadUrl("javascript:setVideoSrc(\"" + media.getSrc() + "\");");
+                    myWebView.setVisibility(View.VISIBLE);*/
+
                 }
                 else {
                     toast.setText("Link Inválido");
