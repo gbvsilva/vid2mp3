@@ -127,13 +127,12 @@ public class Media {
                 if (sig.indexOf("=") > -1 && sig.indexOf("=") < 50) {
                     sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length() - 1));
                     sig.setCharAt(sig.length() - 1, '=');
-                    sig.setCharAt(41, sig.charAt(0));
                 } else {
-                    sig.setCharAt(41, sig.charAt(0));
                     c1 = sig.charAt(36);
                     sig.setCharAt(36, sig.charAt(sig.length()-1));
                     sig.setCharAt(sig.length()-1, c1);
                 }
+                sig.setCharAt(41, sig.charAt(0));
                 sig.delete(0, 3);
                 sig.setCharAt(0, 'A');
                 System.out.println("new sig -> " + sig);
