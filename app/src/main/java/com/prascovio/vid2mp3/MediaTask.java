@@ -73,7 +73,7 @@ public class MediaTask extends AsyncTask<String, Void, Media> {
     protected void onPostExecute(Media media) {
         System.out.println("Video Src -> " + media.getSrc());
         loadingProgressBar.setVisibility(View.INVISIBLE);
-        webView.loadUrl("javascript:setVideoSrc(\"" + media.getSrc() + "\");");
+        webView.loadUrl(media.getSrc());
         webView.setVisibility(View.VISIBLE);
     }
 }

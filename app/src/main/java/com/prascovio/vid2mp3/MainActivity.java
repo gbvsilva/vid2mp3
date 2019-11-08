@@ -14,15 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.VideoView;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,12 +37,9 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         final WebAppInterface webAppI = new WebAppInterface(context);
-        myWebView.addJavascriptInterface(webAppI, "Android");
-
         myWebView.getSettings().setUseWideViewPort(true);
         myWebView.getSettings().setLoadWithOverviewMode(true);
         myWebView.getSettings().setSupportZoom(false);
-        myWebView.loadUrl("file:///android_asset/index.html");
 
         final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
