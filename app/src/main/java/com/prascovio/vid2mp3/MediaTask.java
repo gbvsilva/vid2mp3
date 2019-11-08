@@ -1,10 +1,12 @@
 package com.prascovio.vid2mp3;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.VideoView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,15 +16,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MediaTask extends AsyncTask<String, Void, Media> {
-    Context context;
-    ProgressBar loadingProgressBar;
-    WebView webView;
+    private ProgressBar loadingProgressBar;
+    private WebView webView;
 
-    public MediaTask(ProgressBar pb, WebView wv) {
-        loadingProgressBar = pb;
+    public MediaTask(ProgressBar pB, WebView wV) {
+        loadingProgressBar = pB;
         loadingProgressBar.setVisibility(View.VISIBLE);
-        webView = wv;
+        webView = wV;
     }
+
     @Override
     protected Media doInBackground(String... urls) {
         Media media = null;

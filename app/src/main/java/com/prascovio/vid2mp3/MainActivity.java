@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         final Toast toast = Toast.makeText(context, "", duration);
         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
-
-        final WebView myWebView = (WebView) findViewById(R.id.myWebView);
+        
+        final WebView myWebView = (WebView) findViewById(R.id.webView);
         myWebView.setVisibility(View.INVISIBLE);
 
         WebSettings webSettings = myWebView.getSettings();
@@ -62,14 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(link.startsWith("https://youtu.be/") || link.startsWith("https://www.youtube.com/watch?v=") || link.startsWith("https://youtube.com/watch?v=")) {
 
-
-                    //loadingProgressBar.setVisibility(View.VISIBLE);
                     MediaTask mediaTask = new MediaTask(loadingProgressBar, myWebView);
                     mediaTask.execute(link);
-                    /*System.out.println("Video Src -> " + media.getSrc());
-                    loadingProgressBar.setVisibility(View.INVISIBLE);
-                    myWebView.loadUrl("javascript:setVideoSrc(\"" + media.getSrc() + "\");");
-                    myWebView.setVisibility(View.VISIBLE);*/
 
                 }
                 else {

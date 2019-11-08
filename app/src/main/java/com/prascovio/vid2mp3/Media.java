@@ -75,7 +75,6 @@ public class Media {
         P = Pattern.compile("cipher\":\"(.+?)\"");
         M = P.matcher(info);
         cipher = M.find() ? M.group(1) : null;
-        //System.out.println(cipher);
 
         P = Pattern.compile("url\":\"(.+?)\"");
         M = P.matcher(info);
@@ -99,8 +98,6 @@ public class Media {
                 System.out.println("group2 -> " + M.group(2));
                 group1 = 2;
                 group2 = 1;
-                //decodedOldSig = URLDecoder.decode(M.group(1), "utf-8");
-                //decodedUrl = URLDecoder.decode(M.group(2), "utf-8");
                 System.out.println("Found1");
             } else {
                 regex = cipher.indexOf("s=") < cipher.indexOf("sp=sig") ? "url=(.+?)u0026s=(.+?)u0026" : "url=(.+?)u0026.*s=(.+?)\"";
@@ -109,14 +106,11 @@ public class Media {
                 if (M.find()) {
                     System.out.println("group1 -> " + M.group(1));
                     System.out.println("group2 -> " + M.group(2));
-                    //decodedOldSig = URLDecoder.decode(M.group(2), "utf-8");
-                    //decodedUrl = URLDecoder.decode(M.group(1), "utf-8");
                     System.out.println("Found2");
                     group1 = 1;
                     group2 = 2;
                 } else {
                     System.out.println("Pattern not found!");
-                    //src = "Not found";
                 }
             }
 
@@ -139,10 +133,6 @@ public class Media {
                     c1 = sig.charAt(36);
                     sig.setCharAt(36, sig.charAt(sig.length()-1));
                     sig.setCharAt(sig.length()-1, c1);
-                    //c2 = sig.charAt(52);
-                    //sig.setCharAt(52, sig.charAt(0));
-                    //sig.setCharAt(40, c1);
-                    //sig.delete(100, 103);
                 }
                 sig.delete(0, 3);
                 sig.setCharAt(0, 'A');
