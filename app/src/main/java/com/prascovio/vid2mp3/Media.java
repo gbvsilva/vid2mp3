@@ -122,7 +122,7 @@ public class Media {
                 StringBuilder sig = new StringBuilder();
                 sig.append(decodedOldSig);
 
-                P = Pattern.compile("ALgx");
+                P = Pattern.compile("LgxI2");
                 M = P.matcher(sig);
                 char c1, c2;
                 if(M.find()) {
