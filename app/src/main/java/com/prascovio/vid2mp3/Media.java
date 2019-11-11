@@ -114,7 +114,7 @@ public class Media {
                 }
             }
 
-            if (group1 != 0 && group2 != 0) {
+            if (group1 != 0) {
 
                 decodedUrl = URLDecoder.decode(M.group(group1), "utf-8");
                 decodedOldSig = URLDecoder.decode(M.group(group2), "utf-8");
@@ -124,7 +124,7 @@ public class Media {
 
                 P = Pattern.compile("LgxI2");
                 M = P.matcher(sig);
-                char c1, c2;
+
                 if(M.find()) {
                     if(sig.indexOf("=") > -1 && sig.indexOf("=") < 100) {
                         sig.setCharAt(sig.indexOf("="), sig.charAt(sig.length() - 1));
@@ -134,10 +134,11 @@ public class Media {
                         src = decodedUrl + "&sig=" + sig;
                     }
                 }else {
+                    char c;
                     sig = sig.reverse();
-                    c1 = sig.charAt(36);
+                    c = sig.charAt(36);
                     sig.setCharAt(36, sig.charAt(sig.length() - 1));
-                    sig.setCharAt(sig.length() - 1, c1);
+                    sig.setCharAt(sig.length() - 1, c);
                     sig.setCharAt(41, sig.charAt(0));
                     sig.delete(0, 3);
                     sig.setCharAt(0, 'A');
